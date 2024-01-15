@@ -1,0 +1,284 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DB01B368-0456-4918-A292-A4E30B3AFA87}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>eCommerceNet</RootNamespace>
+    <AssemblyName>eCommerceNet</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Global.asax" />
+    <Content Include="Page\Carrito\Carrito.aspx" />
+    <Content Include="Page\Direccion\Direccion.aspx" />
+    <Content Include="Page\Home.aspx" />
+    <Content Include="Page\Productos\Producto.aspx" />
+    <Content Include="Page\Usuario\Ingresar.aspx" />
+    <Content Include="Page\Usuario\Registrar.aspx" />
+    <Content Include="Template\css\bootstrap.min.css" />
+    <Content Include="Template\css\style.css" />
+    <Content Include="Template\css\tiny-slider.css" />
+    <Content Include="Template\images\bag.svg" />
+    <Content Include="Template\images\bowl-2.png" />
+    <Content Include="Template\images\bowl-3.png" />
+    <Content Include="Template\images\cart.svg" />
+    <Content Include="Template\images\couch.png" />
+    <Content Include="Template\images\cross.svg" />
+    <Content Include="Template\images\dots-green.svg" />
+    <Content Include="Template\images\dots-light.svg" />
+    <Content Include="Template\images\dots-yellow.svg" />
+    <Content Include="Template\images\envelope-outline.svg" />
+    <Content Include="Template\images\img-grid-1.jpg" />
+    <Content Include="Template\images\img-grid-2.jpg" />
+    <Content Include="Template\images\img-grid-3.jpg" />
+    <Content Include="Template\images\person-1.jpg" />
+    <Content Include="Template\images\person-1.png" />
+    <Content Include="Template\images\person_1.jpg" />
+    <Content Include="Template\images\person_2.jpg" />
+    <Content Include="Template\images\person_3.jpg" />
+    <Content Include="Template\images\person_4.jpg" />
+    <Content Include="Template\images\post-1.jpg" />
+    <Content Include="Template\images\post-2.jpg" />
+    <Content Include="Template\images\post-3.jpg" />
+    <Content Include="Template\images\product-1.png" />
+    <Content Include="Template\images\product-2.png" />
+    <Content Include="Template\images\product-3.png" />
+    <Content Include="Template\images\return.svg" />
+    <Content Include="Template\images\sofa.png" />
+    <Content Include="Template\images\support.svg" />
+    <Content Include="Template\images\truck.svg" />
+    <Content Include="Template\images\user.svg" />
+    <Content Include="Template\images\why-choose-us-img.jpg" />
+    <Content Include="Template\js\bootstrap.bundle.min.js" />
+    <Content Include="Template\js\custom.js" />
+    <Content Include="Template\js\tiny-slider.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\Configuration\CantidadProductoConfiguration.cs" />
+    <Compile Include="Data\Configuration\CarritoConfiguration.cs" />
+    <Compile Include="Data\Configuration\DireccionConfiguration.cs" />
+    <Compile Include="Data\Configuration\MetodoPagoConfiguration.cs" />
+    <Compile Include="Data\Configuration\OrdenDetalleConfiguration.cs" />
+    <Compile Include="Data\Configuration\OrdenPagoConfiguration.cs" />
+    <Compile Include="Data\Configuration\ProductoConfiguration.cs" />
+    <Compile Include="Data\Configuration\UsuarioConfiguration.cs" />
+    <Compile Include="Data\ecommerceContext.cs" />
+    <Compile Include="DTO\CantidadProductoDTO.cs" />
+    <Compile Include="DTO\CarritoDTO.cs" />
+    <Compile Include="DTO\DireccionDTO.cs" />
+    <Compile Include="DTO\MetodoPagoDTO.cs" />
+    <Compile Include="DTO\OrdenDetalleDTO.cs" />
+    <Compile Include="DTO\OrdenPagoDTO.cs" />
+    <Compile Include="DTO\ProductoDTO.cs" />
+    <Compile Include="DTO\UsuarioDTO.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CantidadProducto.cs" />
+    <Compile Include="Models\Carrito.cs" />
+    <Compile Include="Models\Direccion.cs" />
+    <Compile Include="Models\MetodoPago.cs" />
+    <Compile Include="Models\OrdenDetalle.cs" />
+    <Compile Include="Models\OrdenPago.cs" />
+    <Compile Include="Models\Producto.cs" />
+    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Page\Carrito\Carrito.aspx.cs">
+      <DependentUpon>Carrito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Carrito\Carrito.aspx.designer.cs">
+      <DependentUpon>Carrito.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Carrito\CarritoMaster.Master.cs">
+      <DependentUpon>CarritoMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Carrito\CarritoMaster.Master.designer.cs">
+      <DependentUpon>CarritoMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Direccion\Direccion.aspx.cs">
+      <DependentUpon>Direccion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Direccion\Direccion.aspx.designer.cs">
+      <DependentUpon>Direccion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Direccion\DireccionMaster.Master.cs">
+      <DependentUpon>DireccionMaster.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Direccion\DireccionMaster.Master.designer.cs">
+      <DependentUpon>DireccionMaster.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Page\eCommerce.Master.cs">
+      <DependentUpon>eCommerce.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\eCommerce.Master.designer.cs">
+      <DependentUpon>eCommerce.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Productos\Producto.aspx.cs">
+      <DependentUpon>Producto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Productos\Producto.aspx.designer.cs">
+      <DependentUpon>Producto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Usuario\Ingresar.aspx.cs">
+      <DependentUpon>Ingresar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Usuario\Ingresar.aspx.designer.cs">
+      <DependentUpon>Ingresar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Usuario\MiCuenta.Master.cs">
+      <DependentUpon>MiCuenta.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Usuario\MiCuenta.Master.designer.cs">
+      <DependentUpon>MiCuenta.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Usuario\Registrar.aspx.cs">
+      <DependentUpon>Registrar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Usuario\Registrar.aspx.designer.cs">
+      <DependentUpon>Registrar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <Content Include="Template\scss\style.scss" />
+    <Content Include="Page\eCommerce.Master" />
+    <Content Include="Page\Direccion\DireccionMaster.Master" />
+    <Content Include="SiteSetting\ConnectionString.config" />
+    <Content Include="Page\Carrito\CarritoMaster.Master" />
+    <Content Include="Page\Usuario\MiCuenta.Master" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Page\Orden\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50854</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50854/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
+  </Target>
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
