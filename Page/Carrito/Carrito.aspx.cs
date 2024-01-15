@@ -8,33 +8,30 @@ using System.Web.UI.WebControls;
 
 namespace eCommerceNet.Page.Carrito
 {
-    public class CarritoTemp
-    {
-        public Models.Producto producto { get; set; }
-        public int idUsuario { get; set; }
-        public int cantidad { get; set; }
-        public int cantidadDisponible { get; set; }
-        public decimal total {  get; set; }
-
-    }
     public partial class Carrito : System.Web.UI.Page
     {
         private eCommerceContext _context = new eCommerceContext();
-        protected List<CarritoTemp> ctemps = new List<CarritoTemp>();
+        protected List<Dictionary<string, dynamic>> ctemps = new List<Dictionary<string, dynamic>>();
         protected void Page_Load(object sender, EventArgs e)
         {
-            var carritos = _context.carrito.Where(x => x.Id == (Convert.ToInt32(Session["usuario"]) + 1)).ToList();
-            foreach (var item in carritos)
+            if (Session["usuario"] == null)
             {
-                var ctemp = new CarritoTemp();
+                Response.Redirect("../../Usuario/Ingresar.aspx");
+            }
+            else
+            {
+                var carritos = _context.carrito.Where(x => x.Id == (int) Session["usuario"]).ToList();
+                foreach (var item in carritos)
+                {
+                    var ctemp = new Dictionary<string, dynamic>();
 
-                ctemp.cantidad = item.Cantidad;
-                ctemp.idUsuario = item.IdUsuario;
-                ctemp.producto = _context.producto.Find(item.IdProducto);
-                ctemp.total = item.Cantidad * ctemp.producto.Precio;
-                ctemp.cantidadDisponible = _context.cantidadProducto.FirstOrDefault(x => x.IdProducto == item.IdProducto).Cantidad;
+                    ctemp["carrito"] = item;
+                    ctemp["producto"] = _context.producto.Find(item.IdProducto);
+                    ctemp["total"] = item.Cantidad * ctemp["producto"].Precio;
+                    ctemp["cantidadProducto"] = _context.cantidadProducto.FirstOrDefault(x => x.IdProducto == item.IdProducto);
 
-                ctemps.Add(ctemp);
+                    ctemps.Add(ctemp);
+                }
             }
         }
 
@@ -44,7 +41,7 @@ namespace eCommerceNet.Page.Carrito
 
             foreach (var ctemp in ctemps)
             {
-                total += ctemp.total;
+                total += ctemp["total"];
             }
 
             return total;
@@ -52,7 +49,51 @@ namespace eCommerceNet.Page.Carrito
 
         protected void eliminarProducto_Click(object sender, EventArgs e)
         {
+            Button boton = sender as Button;
 
+            int id = Int32.Parse(boton.CommandArgument);
+
+            var ctemp = ctemps.FirstOrDefault(x => x["carrito"].Id == id);
+
+            Models.Carrito carrito = _context.carrito.Remove(ctemp["carrito"]);
+            _context.SaveChanges();
+
+            ctemps.Remove(ctemp);
+        }
+
+        protected void tbCantidad_TextChanged(object sender, EventArgs e)
+        {
+            TextBox tb = sender as TextBox;
+
+            int id = Int32.Parse(tb.ID);
+            int cantidad = Int32.Parse(tb.Text);
+
+            var ctemp = ctemps.FirstOrDefault(x => x["carrito"].Id == id);
+
+            if (cantidad < 0)
+            {
+                tb.Text = "0";
+                cantidad = 0;
+            }
+            else if (cantidad > ctemp["cantidadProducto"])
+            {
+                tb.Text = ctemp["cantidadProducto"].ToString();
+                cantidad = ctemp["cantidadProducto"];
+            }
+
+            Models.Carrito carrito = _context.carrito.Find(id);
+
+            if (carrito != null)
+            {
+                carrito.Cantidad = cantidad;
+                _context.SaveChanges();
+            }
+        }
+
+        protected void btnComprar_Click(object sender, EventArgs e)
+        {
+            Session["carritos"] = ctemps;
+            Response.Redirect("../../Direccion/Direccion.aspx");
         }
     }
 }
