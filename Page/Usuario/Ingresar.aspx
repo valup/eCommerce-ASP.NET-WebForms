@@ -3,22 +3,26 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-    <link href="../../Template/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Template/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="../../Template/css/tiny-slider.css" rel="stylesheet">
-    <link href="../../Template/css/style.css" rel="stylesheet">
+    <link href="/Template/css/tiny-slider.css" rel="stylesheet">
+    <link href="/Template/css/style.css" rel="stylesheet">
 
     <h2>Ingresar</h2>
 
-    <div class="input-group input-group-sm mb-3">
-        <asp:TextBox runat="server" ID="tbEmail" placeholder="Email" cssclass="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-            Width="100px"/>
-        <br />
-    </div>
-    <div class="input-group input-group-sm mb-3">
-        <asp:TextBox runat="server" ID="tbPassword" TextMode="Password" placeholder="Password" cssclass="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-            Width="100px"/>
-        <br />
+    <div class="form-group row">
+        <div class="col-md-6">
+            <div class="input-group input-group-sm mb-3">
+                <asp:TextBox runat="server" ID="tbEmail" placeholder="Email" cssclass="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                    Width="100px" MaxLength="50" />
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="input-group input-group-sm mb-3">
+                <asp:TextBox runat="server" ID="tbPassword" TextMode="Password" placeholder="Password" cssclass="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+                    Width="100px" MaxLength="8" />
+            </div>
+        </div>
     </div>
     
     <asp:Label ID="errorLogin" runat="server" CssClass="alert-danger"/>

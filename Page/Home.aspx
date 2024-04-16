@@ -1,4 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Page/eCommerce.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="eCommerceNet.Page.Home" %>
+<%@ Import Namespace = "eCommerceNet" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -25,23 +27,36 @@
 	<!-- Start Product Section -->
 	<div class="product-section">
 		<h2>Productos</h2>
-		<%
-			var prods=ListaProductos();
-			Response.Write("<ul>");
-			foreach(var p in prods)
-			{
-				Response.Write("<li>"
-					+ "<a class=\"product-item\" href=\"Carrito\\Carrito.aspx\">\r\n"
-					+ "<img  src='" + p.Imagen + "' class=\"img-fluid product-thumbnail\">"
-					+ "<h3 class=\"product-title\">'" + p.Nombre + "'</h3>"
-					+ "<strong class=\"product-price\">'" + p.Precio + "'</strong>"
-					+ "<span class=\"icon-cross\"><img src=\"../Template/images/cross.svg\" class=\"img-fluid\"></span></a></li><br/>");
-			}
-			Response.Write("</ul>");
-		%>
 
+        <asp:DataList ID="dlProductos" runat="server" RepeatColumns="3" CellSpacing="3" RepeatLayout="Table">
 
+            <ItemTemplate>
+					<table class="table">
+						<tr>
+							<th colspan="2">
+								<b>
+									<%# Eval("nombre") %></b>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								<asp:Image ImageUrl='<%# Eval("imagen")%>' runat="server" Width="200px" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								$<%# Eval("precio")%>  
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<a href="Productos\DetallesProducto.aspx?id=<%# Eval("id")%>" >Ver</a>
+							</td>
+						</tr>
+					</table>
+            </ItemTemplate>
 
+        </asp:DataList>
 	
 	</div>
 	<!-- End Product Section -->

@@ -8,32 +8,34 @@ using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Web.Security;
-using eCommerceNet.Data;
+
 using System.Security.Policy;
+using AdoNet;
 
 namespace eCommerceNet.Page.Usuario
 {
     public partial class Ingresar : System.Web.UI.Page
     {
-        private eCommerceContext _context = new eCommerceContext();
+        private eCommerceNetEntities _context = new eCommerceNetEntities();
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["usuario"] != null)
+                Response.Redirect("CerrarSesion.aspx");
         }
 
         private void autenticarUsuario()
         {
-            Models.Usuario user = new Models.Usuario();
-            user.Email = tbEmail.Text;
-            user.Password = tbPassword.Text;
+            AdoNet.usuario user = new AdoNet.usuario();
+            user.email = tbEmail.Text;
+            user.password = tbPassword.Text;
 
             var users = from u in _context.usuario
-                        where u.Email == tbEmail.Text && u.Password == tbPassword.Text
+                        where u.email == tbEmail.Text && u.password == tbPassword.Text
                         select u;
 
             if (users.Any())
             {
-                Session["usuario"] = users.FirstOrDefault().Id;
+                Session["usuario"] = users.FirstOrDefault().id;
 
                 Response.Redirect("../Usuario/MiCuenta.aspx");
             }
@@ -45,7 +47,10 @@ namespace eCommerceNet.Page.Usuario
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            autenticarUsuario();
+            if (tbEmail.Text == "" || tbPassword.Text == "")
+                errorLogin.Text = "Por favor ingrese email y password";
+            else
+                autenticarUsuario();
         }
     }
 }

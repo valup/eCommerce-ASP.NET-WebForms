@@ -1,4 +1,5 @@
-﻿using eCommerceNet.Data;
+﻿using AdoNet;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace eCommerceNet.Page.Usuario
 {
     public partial class Registrar : System.Web.UI.Page
     {
-        private eCommerceContext _context = new eCommerceContext();
+        private eCommerceNetEntities _context = new eCommerceNetEntities();
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -18,31 +19,19 @@ namespace eCommerceNet.Page.Usuario
 
         private bool existeEmail()
         {
-            //var users = from u in _context.usuario
-            //            where u.Email == tbEmail.Text
-            //            select u;
+            var users = from u in _context.usuario
+                        where u.email == tbEmail.Text
+                        select u;
 
-            //var users = _context.usuario.Where(u => u.Email == tbEmail.Text).ToList();
-            
-            var users = _context.usuario.FirstOrDefault(u => u.Email == tbEmail.Text);
-
-            if (users != null)
-            {
-                errorExiste.Text = "El email ya esta en uso.";
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+           return users.Any();
         }
 
         private void agregarUsuario()
         {
-            Models.Usuario user = new Models.Usuario();
-            user.Email = tbEmail.Text;
-            user.Password = tbPassword.Text;
-            user.Fecha = DateTime.Now;
+            AdoNet.usuario user = new AdoNet.usuario();
+            user.email = tbEmail.Text;
+            user.password = tbPassword.Text;
+            user.fecha = DateTime.Now;
 
             _context.usuario.Add(user);
             _context.SaveChanges();
@@ -50,14 +39,18 @@ namespace eCommerceNet.Page.Usuario
 
         protected void btnRegistrar_Click(object sender, EventArgs e)
         {
-            if (!existeEmail())
+            if (tbEmail.Text == "" || tbPassword.Text == "" )
             {
-                agregarUsuario();
-                Response.Redirect("Ingresar.aspx");
+                error.Text = "Por favor ingrese email y password";
+            }
+            else if (existeEmail())
+            {
+                error.Text = "El email ya esta en uso.";
             }
             else
             {
-                errorExiste.Text = "El email ya esta en uso.";
+                agregarUsuario();
+                Response.Redirect("Ingresar.aspx");
             }
         }
     }

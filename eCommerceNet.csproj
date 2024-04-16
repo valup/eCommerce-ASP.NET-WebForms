@@ -51,6 +51,7 @@
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -77,9 +78,17 @@
     <Content Include="Global.asax" />
     <Content Include="Page\Carrito\Carrito.aspx" />
     <Content Include="Page\Direccion\Direccion.aspx" />
+    <Content Include="Page\Direccion\Gracias.aspx" />
     <Content Include="Page\Home.aspx" />
+    <Content Include="Page\Orden\DetallesOrden.aspx" />
+    <Content Include="Page\Productos\DetallesProducto.aspx" />
     <Content Include="Page\Productos\Producto.aspx" />
+    <Content Include="Page\Usuario\CerrarSesion.aspx" />
+    <Content Include="Page\Usuario\EliminarCuenta.aspx" />
     <Content Include="Page\Usuario\Ingresar.aspx" />
+    <Content Include="Page\Usuario\MiCuenta.aspx" />
+    <Content Include="Page\Usuario\MisDirecciones.aspx" />
+    <Content Include="Page\Usuario\MisOrdenes.aspx" />
     <Content Include="Page\Usuario\Registrar.aspx" />
     <Content Include="Template\css\bootstrap.min.css" />
     <Content Include="Template\css\style.css" />
@@ -121,34 +130,13 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Configuration\CantidadProductoConfiguration.cs" />
-    <Compile Include="Data\Configuration\CarritoConfiguration.cs" />
-    <Compile Include="Data\Configuration\DireccionConfiguration.cs" />
-    <Compile Include="Data\Configuration\MetodoPagoConfiguration.cs" />
-    <Compile Include="Data\Configuration\OrdenDetalleConfiguration.cs" />
-    <Compile Include="Data\Configuration\OrdenPagoConfiguration.cs" />
-    <Compile Include="Data\Configuration\ProductoConfiguration.cs" />
-    <Compile Include="Data\Configuration\UsuarioConfiguration.cs" />
-    <Compile Include="Data\ecommerceContext.cs" />
-    <Compile Include="DTO\CantidadProductoDTO.cs" />
     <Compile Include="DTO\CarritoDTO.cs" />
-    <Compile Include="DTO\DireccionDTO.cs" />
-    <Compile Include="DTO\MetodoPagoDTO.cs" />
-    <Compile Include="DTO\OrdenDetalleDTO.cs" />
-    <Compile Include="DTO\OrdenPagoDTO.cs" />
-    <Compile Include="DTO\ProductoDTO.cs" />
-    <Compile Include="DTO\UsuarioDTO.cs" />
+    <Compile Include="DTO\ListaCarritoDTO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\CantidadProducto.cs" />
-    <Compile Include="Models\Carrito.cs" />
-    <Compile Include="Models\Direccion.cs" />
-    <Compile Include="Models\MetodoPago.cs" />
-    <Compile Include="Models\OrdenDetalle.cs" />
-    <Compile Include="Models\OrdenPago.cs" />
-    <Compile Include="Models\Producto.cs" />
-    <Compile Include="Models\Usuario.cs" />
+    <Compile Include="Models\CarritoProducto.cs" />
+    <Compile Include="Models\OrdenProducto.cs" />
     <Compile Include="Page\Carrito\Carrito.aspx.cs">
       <DependentUpon>Carrito.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -177,6 +165,13 @@
     <Compile Include="Page\Direccion\DireccionMaster.Master.designer.cs">
       <DependentUpon>DireccionMaster.Master</DependentUpon>
     </Compile>
+    <Compile Include="Page\Direccion\Gracias.aspx.cs">
+      <DependentUpon>Gracias.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Direccion\Gracias.aspx.designer.cs">
+      <DependentUpon>Gracias.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Page\eCommerce.Master.cs">
       <DependentUpon>eCommerce.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -191,12 +186,47 @@
     <Compile Include="Page\Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Page\Orden\DetallesOrden.aspx.cs">
+      <DependentUpon>DetallesOrden.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Orden\DetallesOrden.aspx.designer.cs">
+      <DependentUpon>DetallesOrden.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Orden\Orden.Master.cs">
+      <DependentUpon>Orden.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Orden\Orden.Master.designer.cs">
+      <DependentUpon>Orden.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Productos\DetallesProducto.aspx.cs">
+      <DependentUpon>DetallesProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Productos\DetallesProducto.aspx.designer.cs">
+      <DependentUpon>DetallesProducto.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Page\Productos\Producto.aspx.cs">
       <DependentUpon>Producto.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Page\Productos\Producto.aspx.designer.cs">
       <DependentUpon>Producto.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Usuario\CerrarSesion.aspx.cs">
+      <DependentUpon>CerrarSesion.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Usuario\CerrarSesion.aspx.designer.cs">
+      <DependentUpon>CerrarSesion.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Usuario\EliminarCuenta.aspx.cs">
+      <DependentUpon>EliminarCuenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Usuario\EliminarCuenta.aspx.designer.cs">
+      <DependentUpon>EliminarCuenta.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page\Usuario\Ingresar.aspx.cs">
       <DependentUpon>Ingresar.aspx</DependentUpon>
@@ -205,12 +235,33 @@
     <Compile Include="Page\Usuario\Ingresar.aspx.designer.cs">
       <DependentUpon>Ingresar.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Page\Usuario\MiCuenta.aspx.cs">
+      <DependentUpon>MiCuenta.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Usuario\MiCuenta.aspx.designer.cs">
+      <DependentUpon>MiCuenta.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Page\Usuario\MiCuenta.Master.cs">
       <DependentUpon>MiCuenta.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Page\Usuario\MiCuenta.Master.designer.cs">
       <DependentUpon>MiCuenta.Master</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Usuario\MisDirecciones.aspx.cs">
+      <DependentUpon>MisDirecciones.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Usuario\MisDirecciones.aspx.designer.cs">
+      <DependentUpon>MisDirecciones.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Page\Usuario\MisOrdenes.aspx.cs">
+      <DependentUpon>MisOrdenes.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Page\Usuario\MisOrdenes.aspx.designer.cs">
+      <DependentUpon>MisOrdenes.aspx</DependentUpon>
     </Compile>
     <Compile Include="Page\Usuario\Registrar.aspx.cs">
       <DependentUpon>Registrar.aspx</DependentUpon>
@@ -229,6 +280,7 @@
     <Content Include="SiteSetting\ConnectionString.config" />
     <Content Include="Page\Carrito\CarritoMaster.Master" />
     <Content Include="Page\Usuario\MiCuenta.Master" />
+    <Content Include="Page\Orden\Orden.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -238,7 +290,15 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Page\Orden\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AdoNet\AdoNet.csproj">
+      <Project>{0f72d297-7851-4a93-8d88-6314888a0509}</Project>
+      <Name>AdoNet</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

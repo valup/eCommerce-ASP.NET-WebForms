@@ -7,27 +7,19 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using eCommerceNet.Data;
+
+using AdoNet;
 
 namespace eCommerceNet.Page
 {
     public partial class Home : System.Web.UI.Page
     {
-        private eCommerceContext _context = new eCommerceContext();
+        private eCommerceNetEntities _context = new eCommerceNetEntities();
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            var productos = _context.producto.ToList();
+            dlProductos.DataSource = productos;
+            dlProductos.DataBind();
         }
-
-        protected List<Models.Producto> ListaProductos()
-        {
-            return _context.producto.ToList();
-        }
-
-        //protected void Detalle(object sender, EventArgs e)
-        //{
-        //    int id = Convert.ToInt32((sender as ImageButton).CommandArgument);
-        //    Response.Redirect("Productos/Detalle.aspx?Id=" + id);
-        //}
     }
 }

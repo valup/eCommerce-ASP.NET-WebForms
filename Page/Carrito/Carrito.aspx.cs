@@ -1,4 +1,6 @@
-﻿using eCommerceNet.Data;
+﻿using AdoNet;
+using eCommerceNet.DTO;
+using eCommerceNet.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,90 +12,139 @@ namespace eCommerceNet.Page.Carrito
 {
     public partial class Carrito : System.Web.UI.Page
     {
-        private eCommerceContext _context = new eCommerceContext();
-        protected List<Dictionary<string, dynamic>> ctemps = new List<Dictionary<string, dynamic>>();
+        private eCommerceNetEntities _context = new eCommerceNetEntities();
+        private List<CarritoProducto> cps;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["usuario"] == null)
+            if (!IsPostBack)
             {
-                Response.Redirect("../../Usuario/Ingresar.aspx");
+                if (Session["usuario"] == null)
+                    Response.Redirect("/Page/Usuario/Ingresar.aspx");
+
+                cps = new List<CarritoProducto>();
+                int userId = (int)Session["usuario"];
+                var carritos = _context.carrito.Where(x => x.idUsuario == userId);
+                decimal total = 0;
+
+                foreach (var carrito in carritos)
+                {
+                    var cantProd = _context.cantidadProducto.FirstOrDefault(x => x.idProducto == carrito.idProducto);
+
+                    if (cantProd != null) // verifico que las cantidades sean correctas
+                    {
+                        if (carrito.cantidad < 0)
+                        {
+                            carrito.cantidad = 0;
+                        }
+                        else if (carrito.cantidad > cantProd.cantidad)
+                        {
+                            carrito.cantidad = cantProd.cantidad;
+                        }
+
+                    }
+
+                    var producto = _context.producto.Find(carrito.idProducto);
+
+                    var cp = new CarritoProducto();
+                    cp.carrito = carrito;
+                    cp.producto = producto;
+                    cp.cantidadProducto = cantProd.cantidad;
+                    cp.total = carrito.cantidad * producto.precio;
+
+                    cps.Add(cp);
+
+                    total += cp.total;
+                }
+
+                MapeoCarritoDTO(cps);
+
+                dlCarrito.DataSource = cps;
+                dlCarrito.DataBind();
+
+                lblTotal.Text = total.ToString();
+
+                Session["carrito"] = cps;
             }
             else
             {
-                var carritos = _context.carrito.Where(x => x.Id == (int) Session["usuario"]).ToList();
-                foreach (var item in carritos)
-                {
-                    var ctemp = new Dictionary<string, dynamic>();
-
-                    ctemp["carrito"] = item;
-                    ctemp["producto"] = _context.producto.Find(item.IdProducto);
-                    ctemp["total"] = item.Cantidad * ctemp["producto"].Precio;
-                    ctemp["cantidadProducto"] = _context.cantidadProducto.FirstOrDefault(x => x.IdProducto == item.IdProducto);
-
-                    ctemps.Add(ctemp);
-                }
+                cps = Session["carrito"] as List<CarritoProducto>;
             }
-        }
-
-        protected decimal Total()
-        {
-            decimal total = 0;
-
-            foreach (var ctemp in ctemps)
-            {
-                total += ctemp["total"];
-            }
-
-            return total;
         }
 
         protected void eliminarProducto_Click(object sender, EventArgs e)
         {
-            Button boton = sender as Button;
+            var item = dlCarrito;
+            Button button = (Button)sender;
+            DataListItem panel = (DataListItem)button.Parent;
 
-            int id = Int32.Parse(boton.CommandArgument);
+            int idCarrito = Int32.Parse(button.CommandArgument);
 
-            var ctemp = ctemps.FirstOrDefault(x => x["carrito"].Id == id);
+            var cp = cps.Find(x => x.carrito.id == idCarrito);
+            cps.Remove(cp);
 
-            Models.Carrito carrito = _context.carrito.Remove(ctemp["carrito"]);
-            _context.SaveChanges();
-
-            ctemps.Remove(ctemp);
-        }
-
-        protected void tbCantidad_TextChanged(object sender, EventArgs e)
-        {
-            TextBox tb = sender as TextBox;
-
-            int id = Int32.Parse(tb.ID);
-            int cantidad = Int32.Parse(tb.Text);
-
-            var ctemp = ctemps.FirstOrDefault(x => x["carrito"].Id == id);
-
-            if (cantidad < 0)
+            var c = _context.carrito.Find(cp.carrito.id);
+            if (c != null)
             {
-                tb.Text = "0";
-                cantidad = 0;
-            }
-            else if (cantidad > ctemp["cantidadProducto"])
-            {
-                tb.Text = ctemp["cantidadProducto"].ToString();
-                cantidad = ctemp["cantidadProducto"];
-            }
-
-            Models.Carrito carrito = _context.carrito.Find(id);
-
-            if (carrito != null)
-            {
-                carrito.Cantidad = cantidad;
+                _context.carrito.Remove(c);
                 _context.SaveChanges();
             }
+
+            decimal total = 0;
+            foreach (var carrito in cps)
+            {
+                total += carrito.total;
+            }
+            lblTotal.Text = total.ToString();
+
+            dlCarrito.DataSource = cps;
+            dlCarrito.DataBind();
         }
 
         protected void btnComprar_Click(object sender, EventArgs e)
         {
-            Session["carritos"] = ctemps;
-            Response.Redirect("../../Direccion/Direccion.aspx");
+            Response.Redirect("/Page/Direccion/Direccion.aspx");
+        }
+
+        private void MapeoCarritoDTO(List<CarritoProducto> cps)
+        {
+            foreach (var item in cps)
+            {
+                ListaCarritoDTO.ListaCarrito.Add(item);
+            }
+        }
+
+        protected void ActualizarCarrito(object sender, EventArgs e)
+        {
+            var item = dlCarrito;
+            Button button = (Button)sender;
+            DataListItem panel = (DataListItem)button.Parent;
+            TextBox tbCantidad = (TextBox)panel.FindControl("tbCantidad");
+
+            int idCarrito = Int32.Parse(button.CommandArgument);
+
+            var cp = cps.Find(x => x.carrito.id == idCarrito);
+
+            cp.carrito.cantidad = Int32.Parse(tbCantidad.Text);
+            if (cp.carrito.cantidad > cp.cantidadProducto)
+                cp.carrito.cantidad = cp.cantidadProducto;
+            else if (cp.carrito.cantidad < 1)
+                cp.carrito.cantidad = 1;
+
+            cp.total = cp.carrito.cantidad * cp.producto.precio;
+
+            var c = _context.carrito.Find(cp.carrito.id);
+            c.cantidad = cp.carrito.cantidad;
+            _context.SaveChanges();
+
+            decimal total = 0;
+            foreach (var carrito in cps)
+            {
+                total += carrito.total;
+            }
+            lblTotal.Text = total.ToString();
+
+            dlCarrito.DataSource = cps;
+            dlCarrito.DataBind();
         }
     }
 }

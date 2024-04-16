@@ -12,16 +12,16 @@
 
     <div class="input-group input-group-sm mb-3">
         <asp:TextBox runat="server" ID="tbEmail" placeholder="Email" cssclass="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-            Width="100px"/>
+            Width="100px" MaxLength="50" />
         <br />
     </div>
     <div class="input-group input-group-sm mb-3">
         <asp:TextBox runat="server" ID="tbPassword" TextMode="Password" placeholder="Password" cssclass="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
-            Width="100px"/>
+            Width="100px" MaxLength="8" />
         <br />
     </div>
 
-    <asp:Label ID="errorExiste" runat="server" CssClass="alert-danger"/>
+    <asp:Label ID="error" runat="server" CssClass="alert-danger"/>
     <br />
 
     <asp:Button ID="btnRegistrar" Text="Registrar" runat="server" OnClick="btnRegistrar_Click" />

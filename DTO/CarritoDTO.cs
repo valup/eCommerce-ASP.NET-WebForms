@@ -5,11 +5,11 @@ using System.Web;
 
 namespace eCommerceNet.DTO
 {
-    public class CarritoDTO
+    public static class CarritoDTO
     {
-        public int Id { get; set; }
-        public int IdUsuario { get; set; }
-        public int IdProducto { get; set; }
-        public int Cantidad { get; set; }
+        public static AdoNet.carrito carrito { get; set; }
+        public static AdoNet.producto producto { get; set; }
+        public static int cantidadProducto { get; set; }
+        public static decimal total { get; set; }
     }
 }

@@ -33,13 +33,13 @@ namespace eCommerceNet.Page.Usuario
         protected global::System.Web.UI.WebControls.TextBox tbPassword;
 
         /// <summary>
-        /// Control errorExiste.
+        /// Control error.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label errorExiste;
+        protected global::System.Web.UI.WebControls.Label error;
 
         /// <summary>
         /// Control btnRegistrar.
